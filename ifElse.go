@@ -3,8 +3,6 @@ import (
 	"fmt"
 )
 
-const s string = "constant"
-
 func main(){
 
 	if 7%2 == 0 {

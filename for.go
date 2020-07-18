@@ -3,8 +3,6 @@ import (
 	"fmt"
 )
 
-const s string = "constant"
-
 func main(){
 
 	i := 1
