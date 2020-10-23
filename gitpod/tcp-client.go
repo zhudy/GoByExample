@@ -4,6 +4,7 @@ package main
 import (
 	"net"
 	"fmt"
+	"os"
 )
 
 //tcp client
@@ -16,6 +17,12 @@ func main(){
 	}
 
 	//2. send data
-	conn.Write([]byte("Hello world!"))
+	var msg string
+	if len(os.Args) < 2{
+		msg = "hello world!"
+	}else{
+		msg = os.Args[1]
+	}
+	conn.Write([]byte(msg))
 	conn.Close()
 }
