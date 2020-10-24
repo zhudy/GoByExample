@@ -2,12 +2,18 @@ package main
 
 import (
 	"net/http"
+	"fmt"
+	"io/ioutil"
 )
 
 // net/http server
 
 func f1(w http.ResponseWriter, r *http.Request){
-	str := `<h1 style="color:red">Hello WWW!</h1>`
+	str, err := ioutil.ReadFile("./hello.txt", )
+	if err != nil{
+		w.Write([]byte("找不到文件 hello.txt, 无法显示其内容" + fmt.Sprintf("%v", err)))
+	}
+	//str := `<h1 style="color:red">Hello WWW!</h1>`
 	w.Write([]byte(str))
 }
 
