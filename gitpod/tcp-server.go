@@ -9,6 +9,7 @@ import (
 func processConn(conn net.Conn){
 		//3. talk with client
 		var tmp [128]byte
+		defer conn.Close()
 		for{
 			n, err := conn.Read(tmp[:])
 			if err != nil {
@@ -36,5 +37,6 @@ func main(){
 		}
 		go processConn(conn)
 	}
+	defer listener.Close()
 }
 
