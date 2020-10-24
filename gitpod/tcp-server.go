@@ -9,13 +9,15 @@ import (
 func processConn(conn net.Conn){
 		//3. talk with client
 		var tmp [128]byte
-		n, err := conn.Read(tmp[:])
-		if err != nil {
-			fmt.Println("read from conn failed, err:", err)
-			return
-		}
+		for{
+			n, err := conn.Read(tmp[:])
+			if err != nil {
+				fmt.Println("read from conn failed, err:", err)
+				return
+			}
 
-		fmt.Println(string(tmp[:n]))
+			fmt.Println(string(tmp[:n]))
+		}
 }
 
 func main(){

@@ -5,6 +5,8 @@ import (
 	"net"
 	"fmt"
 	"os"
+	"bufio"
+	"strings"
 )
 
 //tcp client
@@ -24,5 +26,16 @@ func main(){
 		msg = os.Args[1]
 	}
 	conn.Write([]byte(msg))
+	reader := bufio.NewReader(os.Stdin)
+	for{
+		fmt.Print("Input: ")
+		msg, _ := reader.ReadString('\n')  //读到换行
+		msg = strings.TrimSpace(msg)
+		//fmt.Scanln(&msg)
+		if msg == "exit"{
+			break
+		}
+		conn.Write([]byte(msg))
+	}
 	conn.Close()
 }
