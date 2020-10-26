@@ -16,6 +16,11 @@ func main(){
 	r.GET("/", func(c *gin.Context){
 		c.String(http.StatusOK, "hello World!")
 	})
+	r.GET("/user/:name/*action", func(c *gin.Context){
+		name := c.Param("name")
+		action := c.Param("action")
+		c.String(http.StatusOK, name + " is " + action)
+	})
 	//3. 监听端口，默认8080
 	r.Run(":8000")
 }
