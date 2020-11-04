@@ -1,0 +1,15 @@
+//vi ~/.bashrc
+export GOPATH=/home/u2004/david/golang
+export GOROOT=/usr/local/go
+export PATH=$PATH:$GOROOT/bin
+
+$ go build consumer.go
+consumer.go:5:2: cannot find package "github.com/nsqio/go-nsq" in any of:
+        /usr/local/go/src/github.com/nsqio/go-nsq (from $GOROOT)
+        /home/u2004/david/golang/src/github.com/nsqio/go-nsq (from $GOPATH)
+$ go get github.com/nsqio/go-nsq
+
+
+//可以编译和执行了
+$ go build consumer.go
+$ go build producer.go
