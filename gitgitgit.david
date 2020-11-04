@@ -1,0 +1,31 @@
+查看git仓库大文件并删除 //https://blog.csdn.net/wenqibiao8/article/details/81263751
+查看仓库中的大文件
+git rev-list --all --objects | \
+grep "$(git verify-pack -v .git/objects/pack/*.idx | sort -k 3 -n | tail -n 3 | awk -F ' '  '{print $1}')"
+ * git rev-list 查看commit
+ * git verify-pack 检查git打包的文件，输出SHA-1、size等字段
+ * 另外这里用到$ 先求解git verify-pack 的输出
+实际输出如下：
+86fea8fba430c947da99afa8c81aa067c233c47b json.go
+1b808039d30f82e1649278323ded6c3f0c1394fe
+7f0002cdc6e3ada8d1d39a456588c26bf417602c gitpod/try-gin/hello
+
+
+删除仓库中的大文件
+git filter-branch --force --index-filter 'git rm --cached --ignore-unmatch *.pcd' --prune-empty --tag-name-filter cat -- --all  
+git filter-branch 用于重新branch
+实际操作如下：
+$ git filter-branch --force --index-filter 'git rm --cached --ignore-unmatch gitpod/try-gin/hello' --prune-empty --tag-name-filter cat -- --all
+
+
+回收空间
+rm -rf .git/refs/original/ 
+git reflog expire --expire=now --all
+git gc --prune=now
+git gc --aggressive --prune=now
+ * git reflog 用于管理reflog信息
+ * git gc 移除不必要的文件并优化本地文件
+
+
+强制推送改动到远端
+git push origin --force --all
