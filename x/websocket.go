@@ -8,7 +8,8 @@ import (
 	"os"
 	"strings"
  
-	"golang.org/x/net/websocket"
+	"golang.org/x/net/websocket"  //可以和httprouter一起配合
+	"github.com/julienschmidt/httprouter"	
 )
  
 func upper(ws *websocket.Conn) {
@@ -37,11 +38,19 @@ func index(w http.ResponseWriter, r *http.Request) {
 	t.Execute(w, nil)
 }
  
+func Hello(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+    fmt.Fprintf(w, "hello, %s!\n", ps.ByName("name"))
+}
+
 func main() {
-	http.Handle("/upper", websocket.Handler(upper))
-	http.HandleFunc("/", index)
+    router := httprouter.New()
+    router.GET("/hello/:name", Hello)
+    //http.HandleFunc("/", index)	//一样不管用了, 需要改成下面这个
+    router.HandlerFunc("GET", "/", index)
+    //http.Handle("/upper", websocket.Handler(upper))  //ListenAndServe加上router这个后不管用了, 需要改成下面这个
+    router.Handler("GET", "/upper", websocket.Handler(upper))
  
-	if err := http.ListenAndServe(":9999", nil); err != nil {
+	if err := http.ListenAndServe(":9999", router); err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}
