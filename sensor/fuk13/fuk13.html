@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<script language="javascript" id="temp">document.write('<meta name="viewport" content="width=750, initial-scale='+window.screen.width/750+',user-scalable=no, target-densitydpi=device-dpi">');
+console.logF("%c math.yang@heymeo.com ",'background: #000;color: #FFF');</script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style>	body{margin:0; background:#333; overflow:hidden;}.abs{position:absolute;}html {-webkit-tap-highlight-color:rgba(0,0,0,0);}.ipt{background-color:transparent; border-color:transparent;-webkit-appearance: none;outline: none;}</style>
+<title>无标题文档</title>
+</head>
+
+<body>
+<div id="log" class="abs" style="width:710px; left:20px; height:1000px; font-size:24px; line-height:34px; color:#FFF; font-family:Arial, Helvetica, sans-serif"></div>
+
+<div id='fkIOS'  class="abs" style="display:none;">
+    <div class="abs" style=" top:400px; left:150px; width:450px; height:220px; background-color:#FFF; text-align:center; color:#333; font-size:30px; border-radius:15px; padding-top:40px;font-family:Arial, Helvetica, sans-serif">
+        摇一摇需要授权使用<br>请点击<strong>允许</strong>
+        <br>
+        <br>
+        <div class="abs" type="button" style="width:210px; left:120px; color:#333; background:#E2E2E2; border-radius:10px; line-height:60px; height:60px;font-size:34px;font-family:Arial, Helvetica, sans-serif" onclick="ios13granted();">允许</div>
+    </div>
+    
+</div>
+</body>
+</html>
+<script src="zepto.min.js"></script>
+<script>
+
+
+
+
+//调试使用-------↓↓↓↓↓
+var logCount=0
+function logF(str)
+{
+	logCount++
+	$("#log").append("<br>"+logCount+" "+str)
+}
+//调试使用-------↑↑↑↑↑
+
+
+
+
+window.onload=function()
+{
+	addShakeEvent();
+}
+
+function addShakeEvent()
+{	
+	addCheckShake();
+
+	logF("check system")
+	//检查系统版本
+	var ua = navigator.userAgent.toLowerCase();
+	if(ua.indexOf("like mac os x") > 0)
+	{
+		logF("ios")
+		var reg = /os [\d._]*/gi ;
+		var verinfo = ua.match(reg) ;
+		var version = (verinfo+"").replace(/[^0-9|_.]/ig,"").replace(/_/ig,".");
+		var arr=version.split(".");
+		if (arr[0]>12&&arr[1]>2) 
+		{  
+			//对13.3以后的版本处理,包括13.3,
+			logF("IOS 13.3+")			
+			DeviceMotionEvent.requestPermission()
+			.then(permissionState => {				
+				if (permissionState == 'granted') {
+					 logF("已授权")
+					 logF("可以摇一摇了0")
+					 window.addEventListener('devicemotion', () => {});
+				}
+				else
+				{
+					//denied
+					 logF("历史授权已被拒绝过<br>后台退出APP再次进入即可弹出授权框<br>20200931测试微信\钉钉\微博'")
+				}
+			}).catch((err)=>
+			{
+				logF("弹出自定义提示框")
+				$("#fkIOS").css("display","block")
+			})  
+		} 
+		else
+		{
+			logF("IOS 13.2-")
+			logF("可以摇一摇了1") ;	  	
+		}
+	}
+	else
+	{  
+		logF("其他系统")
+		logF("可以摇一摇了2")   
+	}
+}
+
+
+function ios13granted() 
+{
+	//必须用户点击事件内触发，才能弹出授权框
+	$("#fkIOS").css("display","none")
+	
+	logF("弹出IOS系统授权")
+    if (typeof DeviceMotionEvent.requestPermission === 'function') 
+	{
+        DeviceMotionEvent.requestPermission().then((permissionState) => 
+		{
+            if (permissionState === 'granted') 
+			{
+				logF("授权成功")
+                window.addEventListener('devicemotion', () => {});
+				logF("可以摇一摇了3")
+            }
+			else
+			{
+				 logF("授权被拒绝<br>后台退出APP再次进入即可弹出授权框<br>20200931测试微信\钉钉\微博'")
+			}
+        }).catch((error) =>
+		{
+          	logF("奇葩错误"+JSON.stringify(error))
+        })
+    } 
+	else 
+	{
+		logF("!ios 2")
+		logF("可以摇一摇了4")
+    } 
+}
+
+
+
+function addCheckShake()
+{
+	var SHAKE_THRESHOLD = 4000;
+	var last_update = 0;
+	var x=0,y=0,z=0,last_x=0,last_y=0,last_z=0;
+	
+	function deviceMotionHandler(eventData) {
+		var acceleration = eventData.accelerationIncludingGravity;
+		var curTime = new Date().getTime();
+		if ((curTime - last_update) > 60) {
+			var diffTime = curTime - last_update;
+			last_update = curTime;
+			x = acceleration.x;
+			y = acceleration.y;
+			z = acceleration.z;
+			var speed = Math.abs(x + y + z - last_x - last_y - last_z) / diffTime * 10000;
+			//$("#debug").val(x.toFixed(2) +"    "+last_x.toFixed(2)+"     "+y.toFixed(2)+"     "+last_y.toFixed(2)+"     "+z.toFixed(2)+"     "+last_z.toFixed(2))
+			if (speed > SHAKE_THRESHOLD) 
+			{
+				alert("你摇了")
+			}
+			last_x = x;
+			last_y = y;
+			last_z = z;
+		}
+	}	
+	//
+	window.addEventListener('devicemotion', deviceMotionHandler, false);	  
+}
+</script>
