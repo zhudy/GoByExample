@@ -1,2 +1,7 @@
 IOS无法摇一摇，附完美解决文件。 https://www.cnblogs.com/luoeeyang/p/13750711.html
 code: fuk13
+利用gitpod.io, 安装 nps install -g http-server 并启动，可以进行https服务并开放出端口，可以访问：
+https://8080-d8bf70b8-660e-4f28-8a4f-182555e3f28f.ws-us02.gitpod.io/fuk13/
+
+测试微信打开，手机百度，safari, chrome都可以弹出授权界面，授权成功可以摇一摇
+看了文中所说的https和授权两个都要是真的
