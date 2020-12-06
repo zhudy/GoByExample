@@ -59,6 +59,26 @@
 	<script>window.jQuery || document.write("<script src='jquery-1.7.1.min.js'>\x3C/script>")</script>
 
 
+<script>
+            //对13.3以后的版本处理,包括13.3, https://www.cnblogs.com/luoeeyang/p/13750711.html
+            DeviceMotionEvent.requestPermission()
+            .then(permissionState => {                
+                if (permissionState == 'granted') {
+                     alert("已授权")
+                     alert("可以摇一摇了0")
+                     window.addEventListener('devicemotion', () => {});
+                }
+                else
+                {
+                    //denied
+                     alert("历史授权已被拒绝过<br>后台退出APP再次进入即可弹出授权框<br>20200931测试微信\钉钉\微博'")
+                }
+            }).catch((err)=>
+            {
+                alert("弹出自定义提示框")
+                $("#fkIOS").css("display","block")
+            })  
+</script>
 	
     <!-- The runtime script.  You can rename it, but don't forget to rename the reference here as well.
     This file will have been minified and obfuscated if you enabled "Minify script" during export. -->
