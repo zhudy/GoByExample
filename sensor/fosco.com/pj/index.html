@@ -38,26 +38,13 @@
 		<!-- The canvas the project will render to.  If you change its ID, don't forget to change the
 		ID the runtime looks for in the jQuery events above (ready() and cr_sizeCanvas()). -->
 		<canvas id="c2canvas" width="480" height="640">
-			<!-- This text is displayed if the visitor's browser does not support HTML5.
-			You can change it, but it is a good idea to link to a description of a browser
-			and provide some links to download some popular HTML5-compatible browsers. -->
-			<h1>Your browser does not appear to support HTML5.  Try upgrading your browser to the latest version.  <a href="http://www.whatbrowser.org">What is a browser?</a>
-			<br/><br/><a href="http://www.microsoft.com/windows/internet-explorer/default.aspx">Microsoft Internet Explorer</a><br/>
-			<a href="http://www.mozilla.com/firefox/">Mozilla Firefox</a><br/>
-			<a href="http://www.google.com/chrome/">Google Chrome</a><br/>
-			<a href="http://www.apple.com/safari/download/">Apple Safari</a><br/>
-			<a href="http://www.google.com/chromeframe">Google Chrome Frame for Internet Explorer</a><br/></h1>
 		</canvas>
 		
 	</div>
 	
 	<!-- Pages load faster with scripts at the bottom -->
 	
-	<!-- Construct 2 exported games require jQuery.  To save bandwidth, by default
-	this is set to grab it off the Google content delivery network (CDN). Fall back to local if not available. -->
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-	<script>window.jQuery || document.write("<script src='jquery-1.7.1.min.js'>\x3C/script>")</script>
-
+	<script src="jquery-1.7.1.min.js"></script>
 
 	
     <!-- The runtime script.  You can rename it, but don't forget to rename the reference here as well.
@@ -92,4 +79,4 @@
 		
     </script>
 </body> 
-</html> 
+</html>
