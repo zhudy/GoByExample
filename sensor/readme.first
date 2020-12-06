@@ -5,3 +5,5 @@ https://8080-d8bf70b8-660e-4f28-8a4f-182555e3f28f.ws-us02.gitpod.io/fuk13/
 
 测试微信打开，手机百度，safari, chrome都可以弹出授权界面，授权成功可以摇一摇
 看了文中所说的https和授权两个都要是真的
+
+经过gitpod验证，先访问fuk13进行授权，摇一摇成功后再点击链接访问fosco小游戏可以用iPhone手机操控!
