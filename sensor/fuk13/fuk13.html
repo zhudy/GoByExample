@@ -9,6 +9,7 @@ console.logF("%c math.yang@heymeo.com ",'background: #000;color: #FFF');</script
 </head>
 
 <body>
+<a href="../fosco.com/pj/index.html">授权摇一摇试验可以后，点击fosco小游戏</a>
 <div id="log" class="abs" style="width:710px; left:20px; height:1000px; font-size:24px; line-height:34px; color:#FFF; font-family:Arial, Helvetica, sans-serif"></div>
 
 <div id='fkIOS'  class="abs" style="display:none;">
@@ -59,7 +60,7 @@ function addShakeEvent()
 		var verinfo = ua.match(reg) ;
 		var version = (verinfo+"").replace(/[^0-9|_.]/ig,"").replace(/_/ig,".");
 		var arr=version.split(".");
-		if (arr[0]>12&&arr[1]>2) 
+		if (arr[0]>13 || (arr[0]>12&&arr[1]>2))
 		{  
 			//对13.3以后的版本处理,包括13.3,
 			logF("IOS 13.3+")			
