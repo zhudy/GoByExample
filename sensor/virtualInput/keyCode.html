@@ -20,6 +20,23 @@
         document.onkeypress = keypress;
 	document.onkeydown = keydown;
     </script>
+    <script>
+	//https://gist.github.com/sukima/9822950可以尝试用devtools发出调用模拟按键
+	function softKeyPress(key) {
+	  var event = document.createEvent('Event');
+	  event.keyCode = key; // Deprecated, prefer .key instead.
+	  event.key = key;
+	  event.initEvent('keypress');
+	  document.dispatchEvent(event);
+	}
+	function softKeyDown(key) {
+	  var event = document.createEvent('Event');
+	  event.keyCode = key; // Deprecated, prefer .key instead.
+	  event.key = key;
+	  event.initEvent('keydown');
+	  document.dispatchEvent(event);
+	}
+    </script>
 </head>
 <body>
 <a href="https://liuzh.blog.csdn.net/article/details/24691243">Chrome中的onkeypress 的keyCode BUG</a>
