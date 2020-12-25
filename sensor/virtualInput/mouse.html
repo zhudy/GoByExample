@@ -1,0 +1,29 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+ <HEAD>
+  <TITLE> 获取鼠标所在的坐标 </TITLE>
+ <script>
+   function test(){
+    //var huoqu=document.getElementById("huoqu");
+    huoqu.innerText="红框内更新针对当前窗口x="+event.clientX+"y="+event.clientY;//clien是针对当前窗口
+    huoqu2.innerText="红框内更新针对当前屏幕x="+event.screenX+"y="+event.screenY;//clien是针对当前屏幕
+   }
+   function test2(){
+    huoqu3.innerText="document针对当前窗口x="+event.clientX+"y="+event.clientY;//clien是针对当前窗口
+    huoqu4.innerText="document针对当前屏幕x="+event.screenX+"y="+event.screenY;//clien是针对当前屏幕
+   }
+ document.onmousemove=test2
+ </script>
+ </HEAD>
+
+ <BODY>
+  <div onmousemove="test()" style="width:400px;height:300px;border:1px red solid">
+  </div>
+  <span id="huoqu"></span><br/>
+  <span id="huoqu2"></span><br/>
+  <br>
+  <span id="huoqu3"></span>
+  <br>
+  <span id="huoqu4"></span>
+ </BODY>
+</HTML>
