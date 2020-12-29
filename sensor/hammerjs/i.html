@@ -64,12 +64,18 @@ var deltaY = 0;
 // Subscribe to a desired event
 manager.on('swipe', function(e) {
   deltaX = deltaX + e.deltaX;
+  deltaY = deltaY + e.deltaY;
   var direction = e.offsetDirection;
   var translate3d = 'translate3d(' + deltaX + 'px, 0, 0)';
+  var translate3dV = 'translate3d(0,'  + deltaY + 'px,  0)';
   
   if (direction === 4 || direction === 2) {
-    e.target.innerText = deltaX;
+    e.target.innerText = direction + ": " + deltaX;
     e.target.style.transform = translate3d;
+  }
+  if (direction === 8 || direction === 16) {
+    e.target.innerText = direction + ": " + deltaY;
+    e.target.style.transform = translate3dV;
   }
 });
 </script>
