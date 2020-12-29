@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.js"></script>
+<style>
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: #000;
+  color: #FFF;
+  margin: 0;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.center-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.square {
+  width: 50%;
+  height: 50%;
+  margin: 30px;
+  background-color: #7E57C2;
+  transition: transform 300ms ease-out;
+}
+
+.expand {
+  transform: scale(2);
+}
+</style>
+</head>
+<body class="flex-column center-center">  
+    <header>Swipe Left/Right/Up/Down</header>
+    <div class="square center-center"></div>
+
+<script>
+var square = document.querySelector('.square');
+
+var manager = new Hammer.Manager(square);
+var Swipe = new Hammer.Swipe();
+var Tap = new Hammer.Tap({interval: 10});	//interval 好像没啥用
+manager.add(Swipe);
+manager.add(Tap);
+
+manager.on('swipe', function(e) {
+  switch(e.offsetDirection){
+	case 2:
+    		e.target.innerText = "<: " + e.deltaX + ', ' + e.deltaY;
+		break;
+	case 4:
+    		e.target.innerText = ">: " + e.deltaX + ', ' + e.deltaY;
+		break;
+	case 8:
+    		e.target.innerText = "^: " + e.deltaX + ', ' + e.deltaY;
+		break;
+	case 16:
+    		e.target.innerText = "v: " + e.deltaX + ', ' + e.deltaY;
+		break;
+  }
+});
+manager.on('tap', function(e) {
+  e.target.classList.toggle('expand');
+});
+</script>
+
+</body>
+</html>
