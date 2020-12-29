@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<!-- link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" -->
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+
+<!-- script src="https://unpkg.com/swiper/swiper-bundle.js"></script -->
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+<style> 
+.swiper-container {
+    width: 600px;
+    height: 300px;
+}
+</style> 
+</head>
+<body>
+<!-- https://swiperjs.com/get-started -->
+<!-- Slider main container -->
+<div class="swiper-container">
+    <!-- Additional required wrapper -->
+    <div class="swiper-wrapper">
+        <!-- Slides -->
+        <div class="swiper-slide">Slide 1</div>
+        <div class="swiper-slide">Slide 2</div>
+        <div class="swiper-slide">Slide 3</div>
+        ...
+    </div>
+    <!-- If we need pagination -->
+    <div class="swiper-pagination"></div>
+
+    <!-- If we need navigation buttons -->
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+
+    <!-- If we need scrollbar -->
+    <div class="swiper-scrollbar"></div>
+</div>
+
+<script>
+var mySwiper = new Swiper('.swiper-container', {
+  touchAngle : 10,	//设置了很小的允许拖动角度（10）
+  on:{
+    tap: function(swiper,event){ //轻触(tap)Swiper后执行。在移动端，click会有 200~300 ms延迟，所以请用tap代替click作为点击事件。
+      alert('你碰了Swiper');
+    },
+    touchMove: function(swiper,event){
+      alert('touchMove ' + event);
+    },
+    touchMoveOpposite(swiper,event){
+      //console.log(event);
+      alert('touchMoveOpposite ' + event);
+    },
+  },
+
+  // Optional parameters
+  direction: 'vertical',
+  //direction: 'horizontal',
+  loop: true,
+
+  // If we need pagination
+  pagination: {
+    el: '.swiper-pagination',
+  },
+
+  // Navigation arrows
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
+
+  // And if we need scrollbar
+  scrollbar: {
+    el: '.swiper-scrollbar',
+  },
+})
+/*
+mySwiper.on('slideChange', function () {
+  //console.log('slide changed');
+  alert('slide changed');
+});
+mySwiper.on('slideChange', function () {
+  alert('slide changed');
+});
+*/
+</script>
+</body>
+</html>
